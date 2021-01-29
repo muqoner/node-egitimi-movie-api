@@ -98,7 +98,7 @@ router.post("/",(req,res)=>{
    const director= new Director(req.body)
    director.save()
     .then(data=>res.json(data))
-    .catch(err=>console.log(err))
+    .catch(err=>res.json(err))
 })
 
 //director put işlemi
