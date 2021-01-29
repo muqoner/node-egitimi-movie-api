@@ -100,4 +100,19 @@ router.post("/",(req,res)=>{
     .then(data=>res.json(data))
     .catch(err=>console.log(err))
 })
+
+//director put işlemi
+
+router.put("/:director_id",(req,res)=>{
+    Director.findByIdAndUpdate(req.params.director_id,(req.body),{new:true})
+        .then(data=>res.json(data))
+        .catch(err=>res.json(err))
+})
+
+//director silme
+router.delete("/:director_id",(req,res)=>{
+    Director.findByIdAndRemove(req.params.director_id)
+        .then(()=>res.json({message:"yönetmen başarıyla silindi"}))
+        .catch(err=>res.json(err))
+})
 module.exports = router;
