@@ -5,7 +5,19 @@ const Movie = require("../models/Movie");
 
 
 router.get("/",(req,res)=>{
-  Movie.find({})
+  Movie.aggregate([
+    {
+      $lookup:{
+                  from:"directors",
+                  localField:"director_id",
+                  foreignField:"_id",
+                  as:"director"
+              }
+    },
+    {
+      $unwind:"$director"
+    }
+  ])
     .then(data=>res.json(data))
     .catch(err=>res.json(err));
 })
