@@ -110,6 +110,20 @@ describe("/api/movies tests",()=>{
                     done();
                 })
         })
+    });
+    describe("Delete işlemi",()=>{
+        it("movie_id ile film silme",(done)=>{
+            chai.request(server)
+                .delete("/api/movies/" + movie_id)
+                .set("x-access-token",token)
+                .end((err,res)=>{
+                    res.should.have.status(200),
+                    res.should.be.a("object");
+                    res.body.should.have.property("result").eql("film başarıyla silindi") // movie.js router ında oluşturduğum delete işleminde döndürdüğüm object ın içindeki degerlerle kıyaslıyorum
+                    done();
+                })
+        })
     })
+
 });
 
