@@ -4,19 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var index = require('./routes/index');
+const verifyToken = require("./middleware/verify-token"); // token işlemleri için require ettik
 var movie = require('./routes/movie');
 var director = require('./routes/directors');
+
 
 var app = express();
 
 //db Connection
 const db = require("./helper/db")();
+//config JWT işlemleri
+const config = require("./config"); // secret keyi kullanmak için sayfaya dahil ettik
+app.set("api_secret_key",config.api_secret_key); // bunu daga sonra get ile alacağız(index sayfasında jwt için)
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -24,7 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', index);
+app.use("/api",verifyToken);  // /api üzerinden gelen her istekte token sorguları için oluşturduğumuz middleware i kullandık
 app.use('/api/movies', movie);
 app.use('/api/directors', director);
 
