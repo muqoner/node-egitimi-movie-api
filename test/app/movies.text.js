@@ -115,7 +115,7 @@ describe("/api/movies tests",()=>{
         it("movie_id ile film silme",(done)=>{
             chai.request(server)
                 .delete("/api/movies/" + movie_id)
-                .set("x-access-token",token)
+                .set("x-access-token","asdadadasdd")
                 .end((err,res)=>{
                     res.should.have.status(200),
                     res.should.be.a("object");
