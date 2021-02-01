@@ -1,7 +1,7 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http"); // http call işlemleri için kullanıyoruz
 const should = chai.should();  // meli -malı sorgusu için dahil ettik
-const server = require("../app"); //app.js içinde server kurulu olduğu için dahil ettik
+const server = require("../../app"); //app.js içinde server kurulu olduğu için dahil ettik
 
 
 chai.use(chaiHttp);
